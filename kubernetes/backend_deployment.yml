@@ -1,0 +1,38 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: backend-deployment
+  namespace: crudapp-backend
+  labels:
+    app: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      name: backend
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: kvedansh/crud-appdevops:latest
+          ports:
+            - containerPort: 5000
+          env:
+          - name: PORT
+            value: "5000" 
+          - name: MONGODB_URI
+            # value: "mongodb://mongodb:27017/studetail"
+            value: "mongodb://admin:password123@mongodb-service.crudapp-database.svc.cluster.local:27017/studentdb?authSource=admin"  
+          # Add resource limits for single pod
+          resources: 
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+
