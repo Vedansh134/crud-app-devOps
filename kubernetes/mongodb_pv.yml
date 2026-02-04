@@ -1,0 +1,14 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mongo-pv
+  namespace: crudapp-database
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce # only 1 pod assign at the time
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/data/mongodb" # path on your worker pod
