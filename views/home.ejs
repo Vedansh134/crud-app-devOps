@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; }
+        .add-btn { 
+            background: #4CAF50; 
+            color: white; 
+            padding: 10px 20px; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            display: inline-block; 
+            margin-bottom: 20px; 
+        }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:hover { background-color: #f5f5f5; }
+        .action-btn { 
+            padding: 5px 10px; 
+            margin: 0 5px; 
+            text-decoration: none; 
+            border-radius: 3px; 
+        }
+        .view-btn { background: #2196F3; color: white; }
+        .edit-btn { background: #FF9800; color: white; }
+        .delete-btn { background: #f44336; color: white; }
+        .empty-state { 
+            text-align: center; 
+            padding: 40px; 
+            color: #666; 
+            font-size: 18px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Student Management System</h1>
+        
+        <a href="/students/new" class="add-btn">➕ Add New Student</a>
+        
+        <% if (students.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Course</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% students.forEach(student => { %>
+                        <tr>
+                            <td><%= student._id.toString().substring(0, 8) %>...</td>
+                            <td><%= student.name %></td>
+                            <td><%= student.age %></td>
+                            <td><%= student.course %></td>
+                            <td><%= student.email %></td>
+                            <td>
+                                <a href="/students/<%= student._id %>" class="action-btn view-btn">👁️ View</a>
+                                <a href="/students/<%= student._id %>/edit" class="action-btn edit-btn">✏️ Edit</a>
+                                <form action="/students/<%= student._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                    <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure?')">🗑️ Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <div class="empty-state">
+                <p>📭 No students found in the database.</p>
+                <p>Click "Add New Student" to add your first student.</p>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
