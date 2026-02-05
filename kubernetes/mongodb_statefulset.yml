@@ -25,21 +25,21 @@ spec:
             - name: mongo-storage
               mountPath: /data/db
           env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongodb-username
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongodb-password
-        - name: MONGO_INITDB_DATABASE
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongodb-database
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongodb-username
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongodb-password
+          - name: MONGO_INITDB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongodb-database
       volumes:
         - name: mongo-storage
           persistentVolumeClaim:
