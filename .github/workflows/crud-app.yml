@@ -36,7 +36,7 @@ jobs:
             - name: Test app
               run: |
                   # Start app using docker compose
-                  docker-compose up -d
+                  docker compose up -d
 
                   # wait for 10s app ready
                   sleep 10
@@ -46,6 +46,9 @@ jobs:
 
                   # check all running containers
                   docker ps -a
+
+                  echo "🍃 MongoDB Container Status:"
+                  docker ps | grep mongo || echo "MongoDB container not found!"
 
             # Step-5 : Push Images to Docker Hub
             - name: Push Docker Images
